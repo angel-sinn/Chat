@@ -16,10 +16,10 @@ body {
 }
 button {
   text-decoration: none;
-  background: #5ae4ca;
+  background: #2c8cb3;
   color: white;
   font-weight: bold;
   border: 0;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 10px 20px;
 }
