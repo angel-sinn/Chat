@@ -3,6 +3,7 @@
     <input type="text" required placeholder="Display Name" v-model="displayName">
     <input type="email" required placeholder="Email" v-model="email">
     <input type="password" required placeholder="Password" v-model="password">
+    <div class="error">{{ error }}</div>
     <button>Sign up</button>
   </form>
 </template>
@@ -12,7 +13,8 @@ import { ref } from '@vue/reactivity';
 import useSignup from '../composables/useSignup';
 
 export default {
-  setup() {
+  // context is second argument
+  setup(props, context) {
     const { error, signup } = useSignup();
 
     const displayName = ref("");
@@ -21,10 +23,13 @@ export default {
 
     const handleSubmit = async () => {
       await signup(email.value, password.value, displayName.value);
-      console.log('user signed up');
+      if (!error.value) {
+        // for composition api, need to use context to emit
+        context.emit('signup')
+      } 
     }
 
-    return { displayName, email, password, handleSubmit };
+    return { displayName, email, password, handleSubmit, error };
   }
 }
 </script>
