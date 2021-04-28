@@ -1,6 +1,5 @@
 <template>
   <div class="welcome container">
-    <p>Welcome</p>
     <div v-if="showLogin">
       <h2>Login</h2>
       <LoginForm @login="enterChat" />

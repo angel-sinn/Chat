@@ -3,8 +3,10 @@
     <div v-if="error">{{ error }}</div>
     <div v-if="documents" class="messages" ref="messages">
       <div v-for="document in formattedDocuments" :key="document.id" class="chat">
-        <span class="name">{{ document.name }}:</span>
-        <span class="message">{{ document.message }}</span>
+        <span class="bubble">
+          <span class="name">{{ document.name }}:</span>
+          <span class="message">{{ document.message }}</span>
+        </span>
         <span class="created">{{ document.createdAt }}</span>
       </div>
     </div>
@@ -51,11 +53,17 @@ export default {
   .chat {
     margin: 18px 0;
   }
+  .bubble {
+    border: solid 1px grey;
+    border-radius: 14px;
+    padding: 8px 14px 8px 14px;
+    background: white;
+  }
   .created {
     display: block;
     color: #999;
     font-size: 12px;
-    margin-bottom: 4px;
+    margin: 10px 0 8px 2px;
   }
   .name {
     font-weight: bold;
@@ -65,4 +73,5 @@ export default {
     max-height: 400px;
     overflow: auto;
   }
+
 </style>
