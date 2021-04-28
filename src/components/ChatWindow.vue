@@ -1,0 +1,61 @@
+<template>
+  <div class="chat-window">
+    <div v-if="error">{{ error }}</div>
+    <div v-if="documents" class="messages">
+      <div v-for="document in formattedDocuments" :key="document.id" class="chat">
+        <span class="name">{{ document.name }}:</span>
+        <span class="message">{{ document.message }}</span>
+        <span class="created">{{ document.createdAt }}</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { computed } from '@vue/runtime-core';
+
+import getCollection from '../composables/getCollection';
+import { formatDistanceToNow } from 'date-fns';
+
+export default {
+  setup() {
+    const { error, documents } = getCollection('messages');
+
+    // update date format for all documents
+    const formattedDocuments = computed(() => {
+      if (documents.value) {
+        return documents.value.map((document) => {
+          let time = formatDistanceToNow(document.createdAt.toDate());
+          return { ...document, createdAt: time }
+        })
+      }
+    })
+
+    return { error, documents, formattedDocuments }
+  }
+}
+</script>
+
+<style>
+  .chat-window {
+    background: #fafafa;
+    padding: 30px 20px;
+  }
+  .chat {
+    margin: 18px 0;
+  }
+  .created {
+    display: block;
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .name {
+    font-weight: bold;
+    margin-right: 6px;
+  }
+  .messages {
+    max-height: 400px;
+    overflow: auto;
+  }
+</style>
