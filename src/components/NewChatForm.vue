@@ -1,10 +1,11 @@
 <template>
   <form>
     <textarea 
-    placeholder="Type a message and hit enter to send"
+    placeholder="Type a message and hit 'enter' to send"
     v-model="message"
     @keypress.enter.prevent="handleSubmit"
     ></textarea>
+    <div class="error">{{ error }}</div>
   </form>
 </template>
 
@@ -12,12 +13,15 @@
 import { ref } from '@vue/reactivity';
 
 import getUser from '../composables/getUser';
+import useCollection from '../composables/useCollection';
 import { timestamp } from '../firebase/config';
 
 export default {
   setup() {
-    const message = ref("");
     const { user } = getUser();
+    const { error, addDoc } = useCollection('messages');
+
+    const message = ref("");
 
     const handleSubmit = async () => {
       const chat = {
@@ -26,8 +30,10 @@ export default {
         createdAt: timestamp()
       }
 
-      console.log(chat);
-      message.value = "";
+      await addDoc(chat);
+      if (!error.value) {
+        message.value = "";
+      }
     }
 
     return { message, handleSubmit };
