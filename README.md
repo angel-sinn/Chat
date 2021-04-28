@@ -1,19 +1,12 @@
-# live-chat
+# Chat App
 
-## Project setup
-```
-npm install
-```
+## Project Features
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- User authentication with Firebase
+- Real-time chat experience using real-time firestore database/listener
+- Auto-scrolling to latest messages
+- Date formatting with date-fns
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Final Product 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+!["Gif of Chat"](https://github.com/angel-sinn/PL_vue-chat/blob/master/docs/chat.gif)
