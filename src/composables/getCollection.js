@@ -9,7 +9,7 @@ const getCollection = (collection) => {
   let collectionRef = projectFirestore.collection(collection)
     .orderBy('createdAt');
   
-  // real-time listener
+  // real-time listener - snapshot (each time there is a change in the document)
   const unsub = collectionRef.onSnapshot((snap) => {
     let results = [];
     snap.docs.forEach((doc) => {
@@ -22,7 +22,7 @@ const getCollection = (collection) => {
     error.value = null;
   }, (err) => {
     console.log(err.message);
-    documents.value - null;
+    documents.value = null;
     error.value = 'Could not fetch data';
   });
 
